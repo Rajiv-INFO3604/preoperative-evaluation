@@ -1,0 +1,76 @@
+/* Full-screen background with centered form */
+body {
+    font-family: Arial, sans-serif;
+    height: 100vh;
+    margin: 0;
+    background-image: url("/static/images/index/med_background.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Center the form container */
+.auth-container {
+    display: block;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+}
+
+/* Form card styling */
+.card {
+    background: rgba(255, 255, 255, 0.9); /* Light transparent background */
+    backdrop-filter: blur(5px); /* Glassmorphism effect */
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    width: 450px; /* Proper form width */
+    max-width: 90%;
+}
+
+/* Input fields styling */
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    margin-top: 5px;
+}
+
+/* Button styling */
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Center text and links */
+.text-center {
+    text-align: center;
+    margin-top: 10px;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 576px) {
+    .card {
+        width: 90%;
+        padding: 20px;
+    }
+}

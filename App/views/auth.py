@@ -6,7 +6,6 @@ from flask_jwt_extended import create_access_token, jwt_required, JWTManager
 from App.models import db
 from App.controllers import *
 
-
 auth_views = Blueprint('auth_views', __name__, template_folder='../templates')
 
 '''
@@ -15,16 +14,11 @@ Page Routes
 
 @auth_views.route('/signin', methods=['GET'])
 def signin_page():
-  return render_template('signin.html')
+  return render_template('signin.html', title= 'Sign In')
 
 @auth_views.route('/signup', methods=['GET'])
 def signup_page():
-  return render_template('signup.html')
-
-@auth_views.route('/reset_password', methods=['GET'])
-def reset_page():
-  return render_template('Reset_request.html', title= 'Reset Request')
-
+  return render_template('signup.html', title= 'Sign Up')
 
 
 '''
@@ -91,15 +85,6 @@ def logout_action():
     flash('Logged Out!')
     return redirect('/')
 
-@auth_views.route('/reset_password', methods = ['POST'])
-def reset_action():
-
-  data = request.form
-
-  patient = Patient.query.filter_by(email = data['email']).first()    
-  return redirect('/reset_password')
-
-
 '''
 API Routes
 '''
@@ -136,4 +121,3 @@ def user_login_api():
 # @jwt_required()
 # def identify_user_action():
 #     return jsonify({'message': f"username: {jwt_current_user.username}, id : {jwt_current_user.id}"})
-

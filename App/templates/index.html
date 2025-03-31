@@ -1,82 +1,60 @@
-<style>
-.home-container {
-    position: relative;
-    width: 100%;
-    height: 100vh; 
-    background-image: url("static/frontpage.jpg");
-    background-size: cover;
-    background-position: top;
-    text-align: center;
-}
-
-
-
-.home-title {
-    position: absolute;
-    top: 20px; 
-    left: 20px; 
-    color: black; 
-    font-size: 50px; 
-    font-weight: bold;
-    border-bottom: 10px solid #0000ff;
-}
-
-.home-title-1 {
-    position: absolute;
-    top: 50 px; 
-    left: 20px; 
-    color: black; 
-    font-size: 35px;
-    font-family: "Times New Roman", Times, serif; 
-}
-
-.home-title-2 {
-    position: absolute;
-    text-align: left;
-    padding: 20px; /* Padding inside the box */
-    width: 40%;
-    left: 20px;
-    text-align: justify;
-    border: 2px solid blue; /* Blue border with 2px thickness */
-}
-
-
-
-
-
-</style>
+<link rel="stylesheet" href="{{url_for('static', filename= 'css/index.css')}}">
 
 {% extends 'layout.html' %}
-{% block title %}Home{% endblock %}
+{% block title %} {{ title }} {% endblock %}
 
-{% block content %}
-    <div class="home-container">
-        <h1 class="home-title">MEDCARE TT</h1>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <h2 class="home-title-1">Making Healthcare</h2>
-        <br>
-        <br>
-        <h2 class="home-title-1">Better Together</h2>
-        <br>
-        <br>
-        <br>
-        <p class="home-title-2">With a team of compassionate healthcare professionals 
-            and state-of-the-art resources, we're here to support 
-            you every step of the way. From routine check-ups to
-             specialized treatments, we're committed to providing 
-             high-quality care tailored to your unique needs.</p>
+{%block contentA%}
+<div class="contentA">
+  <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="{{url_for('static', filename= 'images/index/pre-operative-evaluation.jpg')}}" class="d-block w-100 h-75" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="{{url_for('static', filename= 'images/index/preoperative-evaluation1.jpg')}}" class="d-block w-100 h-75" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="{{url_for('static', filename= 'images/index/preoperative-evaluation2.jpg')}}" class="d-block w-100 h-75" alt="...">
+      </div>
     </div>
+    <div class="card-img-overlay">
+      <div class="card-body">
+        <h5 class="card-title">Pre-Operative Evaluation</h5>
+        <p class="card-text">Pre-Op evaluations, schedule with your doctor.</p>
+        <a href="/signup" class="btn btn-primary">Signup for Free</a>
+      </div>
+  </div>
+</div>
+{%endblock contentA%}
 
- 
+{%block contentB%}
+<div class="contentB">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <h3 class="font-weight-bold">Pre-Operative Evaluation</h3>
+        <p class="lh-base">
+          The pre-operative assessment is a crucial step in identifying co-morbidities that could lead to complications during anaesthesia, surgery, or the post-operative period. Patients scheduled for elective procedures typically undergo this assessment 2 to 4 weeks before their surgery.
+          This article explores the key components of an effective pre-operative history, physical examination, and routine investigations that may be required.
+        </p>
+      </div>
+      <div class="col">
+        <h3 class="font-weight-bold">Pre-Operative History</h3>
+        <p class="lh-base">A pre-operative history follows the standard structure of medical history-taking but includes additional anaesthetic and surgery-specific considerations.
 
-    
-   
-{% endblock %}
+            <h4 class="font-weight-bold">History of the Presenting Complaint</h4>
+            This section provides a brief overview of why the patient requires surgery and the specific procedure planned. If applicable, it is essential to confirm the surgical site to avoid errors.
+            Certain conditions may be particularly relevant for the anaesthetist. For example, head and neck surgery may indicate abnormal airway anatomy, which could impact airway management.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
 
+{%endblock contentB%}
+
+{%block contentC%}
+{%endblock contentC%}
+
+{%block contentD%}
+{%endblock contentD%}

@@ -1,0 +1,41 @@
+.card {
+    position: relative;
+    width: 100%; /* Set the width to 75% */
+    margin: 0 auto; /* Centers the card horizontally */
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.card-img {
+    width: 75%;
+    height: auto;
+    display: block;
+    filter: brightness(70%); /* Slightly darkens the image for text contrast */
+}
+
+.card-img-overlay {
+    position: absolute;
+    bottom: 20px; /* Moves text to bottom */
+    left: 20px; /* Aligns text to the left */
+    width: calc(100% - 20px); /* Keeps content inside image boundaries */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centers text horizontally */
+    justify-content: center; /* Centers text vertically */
+    text-align: center;
+    color: white;
+    background: rgba(0, 0, 0, 0.5); /* Optional: Adds background for better readability */
+    padding: 15px;
+    border-radius: 5px;
+}
+
+.card-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.card-text {
+    font-size: 1rem;
+}
+

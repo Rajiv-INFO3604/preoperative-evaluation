@@ -14,7 +14,7 @@ migrate = get_migrate(app)
 
 # This command creates and initializes the database
 @app.cli.command("init", help="Creates and initializes the database")
-def initialize():    
+def initialize():
     initialize_db()
 
 
@@ -28,15 +28,15 @@ User Commands
 
 # Commands can be organized using groups
 
-# create a group, it would be the first argument of the comand
+# create a group, it would be the first argument of the command
 # eg : flask user <command>
-user_cli = AppGroup('user', help='User object commands') 
+user_cli = AppGroup('user', help='User object commands')
 
 # Then define the command and any parameters and annotate it with the group (@)
 # @user_cli.command("create", help="Creates a user")
 # @click.argument("username", default="rob")
 # @click.argument("password", default="robpass")
-# def create_user_command(username, password):    
+# def create_user_command(username, password):
 #     print(f'{username} created!')
 
 # this command will be : flask user create bob bobpass
@@ -60,17 +60,18 @@ patient_cli = AppGroup('patient', help='Patient object commands')
 @click.argument("password", default="rob")
 @click.argument("email", default="rob")
 @click.argument("phone_number", default="rob")
-def create_patient_command(firstname, lastname, username, password, email, phone_number):  
-    patient = create_patient(firstname, lastname, username, password, email, phone_number)  
+def create_patient_command(firstname, lastname, username, password, email, phone_number):
+    patient = create_patient(firstname, lastname, username, password, email, phone_number)
     print(f'{patient.firstname} created!')
 
 app.cli.add_command(patient_cli)
+
 
 '''
 Test Commands
 '''
 
-test = AppGroup('test', help='Testing commands') 
+test = AppGroup('test', help='Testing commands')
 
 @test.command("user", help="Run User tests")
 @click.argument("type", default="all")
@@ -81,6 +82,5 @@ def user_tests_command(type):
         sys.exit(pytest.main(["-k", "UserIntegrationTests"]))
     else:
         sys.exit(pytest.main(["-k", "App"]))
-    
 
 app.cli.add_command(test)

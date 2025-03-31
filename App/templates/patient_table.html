@@ -1,4 +1,4 @@
-
+<link rel="stylesheet" href="{{ url_for('static', filename='css/patients.css') }}">
     <div class="container">
         <h1>Patients</h1>
         <table class="table table-striped">
@@ -7,7 +7,7 @@
                     <th>First Name</th>
                     <th>Last Name</th>
                     <th>Email</th>
-                    <!-- <th>Phone</th> -->
+                    <th>Phone</th>
                     <th>Questionnaires</th>
                     <th>Actions</th>
                 </tr>
@@ -18,7 +18,7 @@
                         <td>{{ patient.firstname }}</td>
                         <td>{{ patient.lastname }}</td>
                         <td>{{ patient.email }}</td>
-                        <!-- <td>{{ patient.phone_number }}</td>  -->
+                        <td>{{ patient.phone_number }}</td>
                         <td>{{ patient.questionnaires|length}} </td>
                         <td>
                             {% if current_user.type == 'doctor' %}

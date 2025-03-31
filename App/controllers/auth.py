@@ -1,10 +1,17 @@
 from flask_login import login_user, login_manager, logout_user, LoginManager, current_user
 from flask_jwt_extended import create_access_token, jwt_required, JWTManager, get_jwt_identity, verify_jwt_in_request
-from flask import render_template
-
+from flask import render_template, request, flash, redirect, url_for, current_app
+from App.models.patient import Patient
+from App.database import db
+from App.token import generate_reset_token, verify_reset_token
+from App.extensions import mail
+from flask_mail import Message
 from App.models import User, Doctor, Anesthesiologist, Patient
 
 from functools import wraps
+
+from flask import Blueprint
+auth_blueprint = Blueprint('auth', __name__)
 
 
 def jwt_authenticate(username, password):
@@ -158,3 +165,60 @@ def add_auth_context(app):
           is_authenticated = False
           current_user = None
       return dict(is_authenticated=is_authenticated, current_user=current_user)
+
+@auth_blueprint.route('/reset_password', methods=['GET', 'POST'])
+def reset_password_request():
+    if request.method == 'POST':
+        email = request.form.get('email')
+        patient = Patient.query.filter_by(email=email).first()
+        if patient:
+            token = generate_reset_token(email)
+            reset_link = url_for('auth.reset_with_token', token=token, _external=True)
+            msg = Message(
+                subject="Password Reset Request",
+                sender=current_app.config['MAIL_USERNAME'],
+                recipients=[email]
+            )
+            msg.body = (
+                f"Dear {patient.firstname},\n\n"
+                f"To reset your password, click the following link:\n{reset_link}\n\n"
+                f"If you did not request a password reset, please ignore this email.\n\n"
+                f"Regards,\nMedCareTT Team"
+            )
+            mail.send(msg)
+            flash('A password reset link has been sent to your email.', 'info')
+            return redirect(url_for('auth.sign_in'))
+        else:
+            flash('Email address not found. Please try again.', 'danger')
+    return render_template('reset_password.html', title='Patient Reset Password')
+
+# --- Route to reset the password using the token ---
+@auth_blueprint.route('/reset/<token>', methods=['GET', 'POST'])
+def reset_with_token(token):
+    email = verify_reset_token(token)
+    if not email:
+        flash('The reset link is invalid or has expired.', 'danger')
+        return redirect(url_for('auth.reset_password_request'))
+    
+    if request.method == 'POST':
+        password = request.form.get('password')
+        confirm_password = request.form.get('confirm_password')
+        if password != confirm_password:
+            flash('Passwords do not match. Please try again.', 'danger')
+            return render_template('new_password.html', token=token)
+        
+        patient = Patient.query.filter_by(email=email).first()
+        if patient:
+            patient.set_password(password)
+            db.session.commit()
+            flash('Your password has been updated successfully.', 'success')
+            return redirect(url_for('auth.sign_in'))
+        else:
+            flash('User not found.', 'danger')
+            return redirect(url_for('auth.reset_password_request'))
+    
+    return render_template('new_password.html', token=token, title= 'Patient New Password')
+
+@auth_blueprint.route('/signin', methods=['GET', 'POST'], endpoint='sign_in')
+def sign_in():
+    return render_template('signin.html')

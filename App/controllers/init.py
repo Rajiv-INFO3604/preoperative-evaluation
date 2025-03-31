@@ -12,4 +12,4 @@ def initialize_db():
     patient = create_patient(firstname='John', lastname='Doe', username='johndoe', password='password',phone_number='1234567890',email='johndoe@mail.com')
     doctor = create_doctor(firstname='Jane', lastname='Doe', username='janedoe', password='password',phone_number='0987654321', email='janedoe@mail.com') 
     anesthesiologist = create_anesthesiologist(firstname='Mike', lastname='Smith', username='johnsmith', password='password',phone_number='1234567890', email='mikesmith@mail.com')  
-    print('database intialized')
+    print('database initialized!')
